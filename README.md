@@ -1,6 +1,6 @@
 # Cloudflare Workers AI Chat Agent
 
-[![[cloudflarebutton]]](https://workers.cloudflare.com)
+[![[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/mikeschlottig/lumina-ai-cms)]](https://workers.cloudflare.com)
 
 A production-ready Cloudflare Workers template for building stateful AI chat applications. Features per-session Durable Object agents, Cloudflare AI Gateway integration, tool calling, and a modern React UI with session management.
 
@@ -150,7 +150,7 @@ Deploy to Cloudflare Workers in seconds:
    bun run deploy
    ```
 
-[![[cloudflarebutton]]](https://workers.cloudflare.com)
+[![[![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/mikeschlottig/lumina-ai-cms)]](https://workers.cloudflare.com)
 
 **Custom Domain**: Update `wrangler.toml` with `route` or use Cloudflare Pages for SPA.
 
