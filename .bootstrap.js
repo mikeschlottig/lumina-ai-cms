@@ -83,7 +83,8 @@ function runSetupCommands() {
     "bun add @tiptap/extension-placeholder@^2.7.3",
     "bun add @tiptap/extension-typography@^2.7.3",
     "bun add @tanstack/react-table@^8.20.9",
-    "bun add canvas-confetti@^1.9.0"
+    "bun add canvas-confetti@^1.9.0",
+    "bun add lucide-react@latest"
 ];
     
     if (commands.length === 0) {
