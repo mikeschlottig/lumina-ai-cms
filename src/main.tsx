@@ -14,6 +14,8 @@ import '@/index.css'
 import { HomePage } from '@/pages/HomePage';
 import { ContentPage } from '@/pages/ContentPage';
 import { EditorPage } from '@/pages/EditorPage';
+import { LibraryPage } from '@/pages/LibraryPage';
+import { AnalyticsPage } from '@/pages/AnalyticsPage';
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
   {
@@ -29,6 +31,16 @@ const router = createBrowserRouter([
   {
     path: "/editor/:id",
     element: <EditorPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/library",
+    element: <LibraryPage />,
+    errorElement: <RouteErrorBoundary />,
+  },
+  {
+    path: "/analytics",
+    element: <AnalyticsPage />,
     errorElement: <RouteErrorBoundary />,
   },
 ]);

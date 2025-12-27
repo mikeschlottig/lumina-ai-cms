@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useEditor, EditorContent, BubbleMenu, FloatingMenu } from '@tiptap/react';
 import StarterKit from '@tiptap/starter-kit';
 import Placeholder from '@tiptap/extension-placeholder';
@@ -17,14 +17,17 @@ import {
   Command
 } from 'lucide-react';
 import { Toggle } from '@/components/ui/toggle';
+import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { chatService } from '@/lib/chat';
+import { MediaManager } from '@/components/media/MediaManager';
 interface TiptapEditorProps {
   content: string;
   onChange: (content: string) => void;
   editable?: boolean;
 }
 export function TiptapEditor({ content, onChange, editable = true }: TiptapEditorProps) {
+  const [mediaOpen, setMediaOpen] = useState(false);
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -61,15 +64,23 @@ export function TiptapEditor({ content, onChange, editable = true }: TiptapEdito
           result += chunk;
         }
       );
-      // Replace the loading indicator
       editor.commands.undo();
       editor.chain().focus().insertContent(result).run();
     } catch (error) {
       editor.commands.undo();
     }
   };
+  const insertImage = (url: string) => {
+    // Simple mock image insertion since StarterKit usually handles basic marks
+    editor.chain().focus().insertContent(`<img src="${url}" class="rounded-2xl shadow-xl my-8 w-full aspect-video object-cover" />`).run();
+  };
   return (
     <div className="relative w-full group">
+      <MediaManager 
+        open={mediaOpen} 
+        onOpenChange={setMediaOpen} 
+        onSelect={insertImage} 
+      />
       <BubbleMenu editor={editor} tippyOptions={{ duration: 100 }} className="flex items-center gap-1 overflow-hidden rounded-xl border bg-background/95 backdrop-blur-sm p-1 shadow-xl border-zinc-200 dark:border-zinc-800">
         <Toggle size="sm" pressed={editor.isActive('bold')} onPressedChange={() => editor.chain().focus().toggleBold().run()}>
           <Bold className="h-4 w-4" />
@@ -102,17 +113,9 @@ export function TiptapEditor({ content, onChange, editable = true }: TiptapEdito
           <Type className="h-4 w-4" />
           <span>Heading 1</span>
         </button>
-        <button className="flex items-center gap-2 w-full px-2 py-2 text-sm text-left hover:bg-accent rounded-lg transition-colors" onClick={() => editor.chain().focus().toggleBulletList().run()}>
-          <List className="h-4 w-4" />
-          <span>Bullet List</span>
-        </button>
-        <button className="flex items-center gap-2 w-full px-2 py-2 text-sm text-left hover:bg-accent rounded-lg transition-colors" onClick={() => editor.chain().focus().toggleOrderedList().run()}>
-          <ListOrdered className="h-4 w-4" />
-          <span>Numbered List</span>
-        </button>
-        <button className="flex items-center gap-2 w-full px-2 py-2 text-sm text-left hover:bg-accent rounded-lg transition-colors opacity-50 cursor-not-allowed">
+        <button className="flex items-center gap-2 w-full px-2 py-2 text-sm text-left hover:bg-accent rounded-lg transition-colors" onClick={() => setMediaOpen(true)}>
           <ImageIcon className="h-4 w-4" />
-          <span>Add Image</span>
+          <span>Add Media</span>
         </button>
       </FloatingMenu>
       <EditorContent editor={editor} />
